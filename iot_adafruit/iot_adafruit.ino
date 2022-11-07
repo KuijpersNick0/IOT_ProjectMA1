@@ -1,9 +1,9 @@
 
-// include the DHT22 Sensor Library
+// include the DHT Sensor Library
 #include "DHT.h"
 
 // DHT digital pin and sensor type
-#define DHTPIN 10
+#define DHTPIN 12
 #define DHTTYPE DHT11
 
 // Initialize DHT sensor
