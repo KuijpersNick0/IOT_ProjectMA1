@@ -52,6 +52,7 @@ void loop() {
   LoRa.print("C");
 
   LoRa.endPacket();
+
   delay(1000);
   
   // Display
