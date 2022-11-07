@@ -4,7 +4,7 @@
 
 // DHT digital pin and sensor type
 #define DHTPIN 10
-#define DHTTYPE DHT22
+#define DHTTYPE DHT11
 
 // Initialize DHT sensor
 DHT dht(DHTPIN, DHTTYPE, 15);
