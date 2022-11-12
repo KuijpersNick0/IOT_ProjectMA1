@@ -13,8 +13,8 @@
         <div class="div1"> 
             <section id="header">
                 <h3>Crops Oversee</h3>
-                <h6> Date : </h6>
-                <h6> Time : </h6>     
+                <h6> Date : <script> document.write(new Date().toDateString()); </script></h6>
+                <h6> Time : <script> document.write(new Date().toLocaleTimeString()); </script></h6>     
             </section> 
         </div>
         <div class="div2">
@@ -85,4 +85,12 @@
         </div>
     </div>
 </body>
+<script>
+    n =  new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("date").innerHTML = Date : m + "/" + d + "/" + y;
+</script>
+<script src = "/index.js"></script>
 </html>
