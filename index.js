@@ -4,7 +4,7 @@ let app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:true}));
 
-//Middleware; css/img
+//Middleware; css/img/js
 app.use(express.static('public'));
 
 const host = 'eu1.cloud.thethings.network' 
@@ -15,8 +15,9 @@ let GlobalData = 0;
 //Server
 var server = require("http").Server(app);
 var io = require("socket.io")(server); 
+
 server.listen(process.env.PORT || 3000, () => { 
-   console.log('j ecoute au port 3000 socket');
+   console.log('J ecoute au port 3000 socket');
 });
 
 //MQTT
@@ -52,24 +53,42 @@ client.on("message", function (topic, message) {
 
 /* GET home page. */
 app.get('/', function(req, res) {  
-    res.render('../Views/homepage.ejs',{GlobalData: GlobalData});
+    res.render('../Views/homepage.ejs');
 });
 
 // SOCKET
-io.on("connection", function(socket)
-{
-  console.log("Client connected: " + socket.id);
+io.on("connection", function(socket) {
+    console.log("Client connected: " + socket.id);
 
-  socket.on("disconnect", function() {
-    console.log(socket.id + " disconnected");
-  });
+    socket.on("disconnect", function() {
+        console.log(socket.id + " disconnected");
+    });
 
-  socket.on("REQUEST_GET_DATA", function() {
-    socket.emit("SEND_DATA", GlobalData);
-  });
+    socket.on("REQUEST_GET_DATA", function() {
+        socket.emit("SEND_DATA", GlobalData);
+    });
 
-  function intervalFunc() {
-    socket.emit("SEND_DATA", GlobalData);
-  }
-  setInterval(intervalFunc, 2000);
+    socket.on("SEND_DATA", function(data)  { 
+    // Listen data from route "SEND_DATA"
+        var strList = [];
+        for (var i = 0 ; i < data.length; i++) {
+            strList.append(data.charCodeAt(i).toString());
+        }
+        //Pour crop 1 test
+        document.getElementById('NowTemp').innerHTML = strList[0]; 
+        document.getElementById('NowHum').innerHTML = strList[1]; 
+        document.getElementById('AvgTemp').innerHTML = strList[2]; 
+        document.getElementById('AvgHum').innerHTML = strList[3]; 
+    });
+
+    function requestGetDataAfterATime() {
+        //Pour si besoin bouton refresh ds ejs
+        socket.emit("REQUEST_GET_DATA");
+    }
+
+    //Toute les 2 secondes envoies de données du serveur 
+    function intervalFunc() {
+        socket.emit("SEND_DATA", GlobalData);
+    }
+    setInterval(intervalFunc, 2000);
 });
