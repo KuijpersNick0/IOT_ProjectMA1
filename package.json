@@ -1,0 +1,17 @@
+{
+  "name": "iot-project",
+  "version": "1.0.0",
+  "description": "Projet IOT dans le cadre du cours Master 1 IOT  // CmA",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "IOT"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^4.3.7"
+  }
+}
