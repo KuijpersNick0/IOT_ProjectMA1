@@ -1,15 +1,25 @@
 const mqtt = require('mqtt')
 var express = require('express'); 
 let app = express();
-app.use(express.urlencoded({extended:true}));
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended:true}));
 
-var url = require('url');
+//Middleware; css/img
+app.use(express.static('public'));
 
 const host = 'eu1.cloud.thethings.network' 
 const port = '1883' 
 
-let getDataFromTTN;
+let GlobalData = 0;
 
+//Server
+var server = require("http").Server(app);
+var io = require("socket.io")(server); 
+server.listen(process.env.PORT || 3000, () => { 
+   console.log('j ecoute au port 3000 socket');
+});
+
+//MQTT
 const connectUrl = `mqtt://${host}:${port}`
 const client = mqtt.connect(connectUrl, { 
     clean: true,
@@ -33,23 +43,33 @@ client.on("error", function (error) {
 });
 
 //handle incoming messages
-client.on("message", function (topic, message, packet) {
-    getDataFromTTN = JSON.parse(message);
-    data = getDataFromTTN.uplink_message.decoded_payload;
-    console.log("message is " + message);
-    console.log("topic is " + topic);
+client.on("message", function (topic, message) {
+    var getDataFromTTN = JSON.parse(message);
+    console.log("Data from TTN:", getDataFromTTN.uplink_message.frm_payload)
+    var getFrmPayload =  getDataFromTTN.uplink_message.frm_payload;
+    GlobalData = Buffer.from(getFrmPayload, 'base64').toString();
 }) 
 
 /* GET home page. */
-app.get('/', function(req, res, next) {  
-    res.render('../Views/homepage.ejs',{getDataFromTTN: getDataFromTTN});
+app.get('/', function(req, res) {  
+    res.render('../Views/homepage.ejs',{GlobalData: GlobalData});
 });
 
-//setting middleware; css/img
-app.use(express.static('public'));
+// SOCKET
+io.on("connection", function(socket)
+{
+  console.log("Client connected: " + socket.id);
 
+  socket.on("disconnect", function() {
+    console.log(socket.id + " disconnected");
+  });
 
-app.listen(3000, function() {
-    console.log("le serveur running on port 3000")
+  socket.on("REQUEST_GET_DATA", function() {
+    socket.emit("SEND_DATA", GlobalData);
+  });
+
+  function intervalFunc() {
+    socket.emit("SEND_DATA", GlobalData);
+  }
+  setInterval(intervalFunc, 2000);
 });
- 
