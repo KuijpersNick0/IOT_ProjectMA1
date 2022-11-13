@@ -49,6 +49,7 @@ client.on("message", function (topic, message) {
     console.log("Data from TTN:", getDataFromTTN.uplink_message.frm_payload)
     var getFrmPayload =  getDataFromTTN.uplink_message.frm_payload;
     GlobalData = Buffer.from(getFrmPayload, 'base64').toString();
+    console.log(GlobalData);
 }) 
 
 /* GET home page. */
@@ -67,24 +68,6 @@ io.on("connection", function(socket) {
     socket.on("REQUEST_GET_DATA", function() {
         socket.emit("SEND_DATA", GlobalData);
     });
-
-    socket.on("SEND_DATA", function(data)  { 
-    // Listen data from route "SEND_DATA"
-        var strList = [];
-        for (var i = 0 ; i < data.length; i++) {
-            strList.append(data.charCodeAt(i).toString());
-        }
-        //Pour crop 1 test
-        document.getElementById('NowTemp').innerHTML = strList[0]; 
-        document.getElementById('NowHum').innerHTML = strList[1]; 
-        document.getElementById('AvgTemp').innerHTML = strList[2]; 
-        document.getElementById('AvgHum').innerHTML = strList[3]; 
-    });
-
-    function requestGetDataAfterATime() {
-        //Pour si besoin bouton refresh ds ejs
-        socket.emit("REQUEST_GET_DATA");
-    }
 
     //Toute les 2 secondes envoies de données du serveur 
     function intervalFunc() {
