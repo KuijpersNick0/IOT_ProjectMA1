@@ -1,24 +1,28 @@
-var socket = io();
+var socket = io();  
+
 socket.on("SEND_DATA", function(data)  { 
     // Listen data from route "SEND_DATA"
-    var strList = [];
-    // for (var i = 0 ; i < data.length; i++) {
-    //     strList.push(data);
-    // } 
-    strList = data.split(/[, ]+/) ;
+    var strList = []; 
+    // strList = data.split(/[, ]+/); 
 
-    document.getElementById('NowTemp1').innerHTML = strList[0]; 
-    document.getElementById('NowHum1').innerHTML = strList[1];
-    //document.getElementById('AvgTemp1').innerHTML = strList[2] 
-    //document.getElementById('AvgHum1').innerHTML = strList[3];
-
-    //document.getElementById('NowTemp2').innerHTML = strList[2]; 
-    //document.getElementById('NowHum2').innerHTML = strList[3];
-    //document.getElementById('AvgTemp2').innerHTML = strList[6]; 
-    //document.getElementById('AvgHum2').innerHTML = strList[7];
+    // document.getElementById('NowTemp1').innerHTML = strList[0]; 
+    // document.getElementById('NowHum1').innerHTML = strList[1];
+    // document.getElementById('NowMois1').innerHTML = strList[2];
+ 
+    // const sqlInsert = "INSERT INTO croptemperature VALUES (?,?);";
+    // connection.query(sqlInsert, ["70B3D57ED0055DBB", strList[0]], (error, resultSQL) => {
+    //     if (error) {
+    //         console.log(error);
+    //     }
+    //     else{
+    //         console.log("Ajouté a table 'fournisseur_delete'");
+    //     } 
+    // })
+ 
 });
 
 function requestGetDataAfterATime() {
     //Pour si besoin bouton refresh ds ejs
     socket.emit("REQUEST_GET_DATA");
 }
+ 

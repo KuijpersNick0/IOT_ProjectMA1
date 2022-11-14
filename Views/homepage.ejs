@@ -10,8 +10,8 @@
 
 <body>
     <!--
-        <button id = "buttonRequestData" onclick="requestGetDataAfterATime()"> Request data</button>
-    -->
+        <button id = "buttonRequestData" onclick="requestGetDataAfterATime()"> Request data</button> 
+    --> 
     <div class="parent">
         <div class="div1"> 
             <section id="header">
@@ -31,6 +31,7 @@
                             <th scope="col"></th>
                             <th scope="col"> Temperature [°C]</th>
                             <th scope="col"> Humidity [%]</th>
+                            <th scope="col"> Moisissure [Sp/m3]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,57 +39,32 @@
                             <th> Now :</th>
                             <th id="NowTemp1"> </th>
                             <th id="NowHum1"> </th>
+                            <th id="NowMois1"> </th> 
                         </tr>
                         <tr>
                             <th>Recommanded : </th> 
                             <th> 21 </th>
                             <th> 22 </th>
+                            <th> 23 </th> 
                         </tr>
                         <tr>
                             <th>Avrg last h :</th>
                             <th id="AvgTemp1"> </th>
                             <th id="AvgHum1"> </th>
+                            <th id="AvgMois1"> </th>
                         </tr>
                     </tbody>
                 </table>
             </section>   
         </div>
-        <div class="div3"> 
-            <section id="tables">
-                <table>
-                    <caption>
-                        <strong>Crop number two</strong> 
-                    </caption>
-                    <thead>
-                        <tr>
-                            <th scope="col"></th>
-                            <th scope="col"> Temperature [°C]</th>
-                            <th scope="col"> Humidity [%]</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th> Now :</th>
-                            <th id="NowTemp2"> </th>
-                            <th id="NowHum2"> </th>
-                        </tr>
-                        <tr>
-                            <th>Recommanded : </th> 
-                            <th> 21 </th>
-                            <th> 22 </th>
-                        </tr>
-                        <tr>
-                            <th>Avrg last h :</th>
-                            <th id="AvgTemp2"> </th>
-                            <th id="AvgHum2"> </th>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>       
+        <div class="div3">  
+            <canvas id="myChart" width="400" height="400"></canvas>       
         </div>
-    </div>
+    </div> 
 </body>
 <script src ="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src = "/socket.io/socket.io.js"></script>
-<script src = "/dataProcess.js"></script>
+<script src = "/dataProcess.js"></script>  
+<script src = "https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src = "/chart.js"> </script> 
 </html>
