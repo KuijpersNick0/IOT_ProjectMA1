@@ -46,9 +46,12 @@ client.on("error", function (error) {
 //handle incoming messages
 client.on("message", function (topic, message) {
     var getDataFromTTN = JSON.parse(message);
-    console.log("Data from TTN:", getDataFromTTN.uplink_message.frm_payload)
-    var getFrmPayload =  getDataFromTTN.uplink_message.frm_payload;
-    GlobalData = Buffer.from(getFrmPayload, 'base64').toString();
+    var temperature = JSON.parse(getDataFromTTN.uplink_message.decoded_payload.degreesC).toFixed(2);
+    var humidity = JSON.parse(getDataFromTTN.uplink_message.decoded_payload.humidity).toFixed(2);
+    console.log("Data from TTN:", temperature, humidity);
+
+    //var getFrmPayload =  getDataFromTTN.uplink_message.frm_payload;
+    GlobalData = temperature + "," + humidity ;
 }) 
 
 /* GET home page. */
