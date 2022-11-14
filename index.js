@@ -49,7 +49,6 @@ client.on("message", function (topic, message) {
     console.log("Data from TTN:", getDataFromTTN.uplink_message.frm_payload)
     var getFrmPayload =  getDataFromTTN.uplink_message.frm_payload;
     GlobalData = Buffer.from(getFrmPayload, 'base64').toString();
-    console.log(GlobalData);
 }) 
 
 /* GET home page. */
