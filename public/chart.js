@@ -1,4 +1,4 @@
-
+let connection = require('../db');
 const labels = [
     'January',
     'February',
@@ -28,3 +28,10 @@ const myChart = new Chart(
     document.getElementById('myChart'),
     config
 );
+
+// const sqlInsert = "INSERT INTO nomenclature(idNomenclature, idPiece, idProjet, idFournisseur) VALUES (?,?,?,?) ON DUPLICATE KEY UPDATE idNomenclature=idNomenclature";
+// let todo = [idNomenclature, idPiece, idProjet, idFournisseur];
+// connection.query(sqlInsert, todo, function(err, result){
+//     if (err) throw err;
+//     console.log("ajout bdd");
+// });
