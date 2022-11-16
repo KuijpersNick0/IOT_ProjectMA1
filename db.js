@@ -7,4 +7,5 @@ var connection = mysql.createConnection({
     charset :'utf8'
 });
 connection.connect(function(error) {if(error) console.log(error);});
+
 module.exports = connection; 

@@ -60,10 +60,9 @@ client.on("message", function (topic, message) {
     } 
 }) 
 
-/* GET home page. */
-app.get('/', function(req, res) {  
-    res.render('../Views/homepage.ejs');
-});
+//mes routes
+let routes = require('./routes');
+app.use('/', routes);
 
 // SOCKET
 io.on("connection", function(socket) {
