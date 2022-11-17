@@ -1,4 +1,3 @@
-//import croptemperatures from '../db.js';
 const labels = [
     'January',
     'February',
