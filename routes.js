@@ -6,6 +6,6 @@ router.get('/', function(req, res) {
     res.render('../Views/homepage.ejs');
 });
 
-router.get('/chartData.js', chartController.chart);
+router.get('/data.json', chartController.chart);
 
 module.exports = router;
